@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<style>
+body img {
+  max-width: 30%;
+  margin-right: 3px;
+  vertical-align: top;
+  border: 2px solid #eee;
+  box-shadow: 2px 2px 6px 2px #999;
+}
+</style>
+<title>Promises</title>
+</head>
+<body>
+<h1>Cats</h1>
+<script>
+//### Part 2
+let addImg = (src) => {
+  let imgElement = document.createElement('img')
+  imgElement.src = src
+  document.body.appendChild(imgElement)
+}
+Promise.all([
+  loadImage('img/cat1.jpg'),
+  loadImage('img/cat2.jpg'),
+  loadImage('img/cat3.jpg')
+]).then((images) => { // console.log(images)
+  images.forEach(img => addImg(img.src))
+}).catch((error) => {
+  // handle error later
+})
+//### Part 3
+function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    let image = new Image()
+    image.onload = function() {
+      resolve(image)
+    }
+    image.onerror = function() {
+      let message = 'Could not load image at ' + url
+      reject(new Error(msg))
+    }
+    image.src = url
+  })
+}
+//### Part 1
+let whenCatLoaded = loadImage('img/cat4.jpg')
+whenCatLoaded.then(img => {
+  let imgElement = document.createElement('img')
+  imgElement.setAttribute('src', img.src)
+  document.body.appendChild(imgElement)
+})
+// ##############################################################
+// DevDocs.io promise
+// let randomTo = (max) => { return Math.floor(Math.random()*Math.floor(max)) }
+// var p1 = new Promise((resolve, reject) => {
+//   setTimeout(resolve, 100, 'foo')
+//   let num = randomTo(10)
+//   if (num > 5) {
+//     resolve('Success!')
+//   } else {
+//     reject('Failure!')
+//   }
+// })
+// console.log(p1)
+// p1.then(
+//     ()=>console.warn('then')
+//   )
+//   .catch(()=>
+//     console.warn('catchSomething')
+//   )
+</script>
+</body>
+</html>

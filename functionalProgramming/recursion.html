@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Recursion</title>
+</head>
+<body>
+<script>
+/*
+  It's a function that call itself untill it doesn't
+*/
+let countDownFrom = (num) => {
+  // Base case
+  if (num < 0) return;
+
+  //function code
+  console.log(num)
+
+  // Recursive case
+  countDownFrom(num - 1)
+}
+
+countDownFrom(10)
+
+let categories = [
+  { id: 'animals', 'parent': null },
+  { id: 'mammals', 'parent': 'animals'},
+  { id: 'cats', 'parent': 'mammals'},
+  { id: 'dogs', 'parent': 'mammals'},
+  { id: 'chihuahua', 'parent': 'dogs'},
+  { id: 'labrador', 'parent': 'dogs'},
+  { id: 'persian', 'parent': 'cats'},
+  { id: 'siamese', 'parent': 'cats'}
+]
+
+let makeTree = (categories, parent) => {
+  let node = {}
+
+  categories
+    .filter(c => c.parent == parent)
+    .forEach(c => node[c.id] = makeTree(categories, c.id))
+
+  return node
+}
+
+console.log(
+  JSON.stringify( makeTree(categories, null) , null, 2 )
+)
+
+// What is what you are going to do
+/*let wantedStructure =
+{
+  animals: {
+    mammals: {
+      dogs: {
+        chihuahua: null,
+        labrador: null
+      },
+      cats: {
+        persian: null,
+        siamese: null
+      }
+    }
+  }
+}*/
+</script>
+</body>
+</html>
