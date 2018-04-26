@@ -33,3 +33,6 @@ cat.talk()
 
 Object.setPrototypeOf(prarieDog, dog)
 prarieDog.howl()
+/**
+ * PROTOTYPE is delegation
+ */
